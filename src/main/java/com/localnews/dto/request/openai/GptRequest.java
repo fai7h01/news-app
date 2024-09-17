@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class OpenAIRequest {
+public class GptRequest {
 
     private String model;
     private List<Message> messages;

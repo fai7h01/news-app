@@ -1,7 +1,7 @@
 package com.localnews.client;
 
-import com.localnews.dto.response.ChatCompletionResponse;
-import com.localnews.dto.response.OpenAIRequest;
+import com.localnews.dto.request.openai.GptRequest;
+import com.localnews.dto.response.openai.GptResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +12,6 @@ public interface OpenAIClient {
 
     @PostMapping("/completions")
     GptResponse getCompletions(@RequestHeader("Authorization") String authHeader,
-                                          @RequestBody GptRequest requestBody);
+                               @RequestBody GptRequest request);
 
 }
