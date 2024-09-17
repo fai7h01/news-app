@@ -40,7 +40,7 @@
             <h1 th:text="'Article here:'"></h1>
             <h2 th:text="${news.getTitle()}"></h2>
             <p th:text="${news.getContent()}"></p>
-            <p th:text="${news.getUrl()}"></p>
+            <p><a th:href="${news.url}">Link to news</a></p>
         </div>
     </div>
 </div>

@@ -43,8 +43,8 @@ public class GptServiceImpl implements GptService {
             request.setModel(model);
             request.setMessages(List.of(
                     new Message("system", "Use the provided city and news article and need to determine if this article is local to this city or contains that city." +
-                            "If yes write: \"Yes\" or \"No\""),
-                    new Message("user", "is this article: " + content + " contains or is about" + city + "?")
+                            "If yes write: \"Yes\" or if no write: \"No\""),
+                    new Message("user", "is this article: " + content + " contains word: " + city + " or is about it?")
             ));
             request.setMax_completion_tokens(100);
             return openAIClient.getCompletions(authHeader, request);
