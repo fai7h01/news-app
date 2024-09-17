@@ -28,12 +28,9 @@ public class NewsController {
 
     @PostMapping("/search")
     public String findNewsByCity(@ModelAttribute("news") NewsDto newsDto, Model model){
-        NewsDto news = newsService.getNewsByCity(newsDto.getCity(), newsDto);
+        NewsDto news = newsService.getNewsByCity(newsDto.getCity());
+        model.addAttribute("cities", cityService.getAllCities());
         model.addAttribute("news", news);
-        model.addAttribute("author", news.getAuthor());
-        model.addAttribute("title", news.getTitle());
-        model.addAttribute("description", news.getDescription());
-        model.addAttribute("content", news.getContent());
-        return "redirect:/news";
+        return "article";
     }
 }

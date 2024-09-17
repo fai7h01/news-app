@@ -26,18 +26,15 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public NewsDto getNewsByCity(String city, NewsDto newsDto) {
+    public NewsDto getNewsByCity(String city) {
         List<News> allNews = newsRepository.findAll();
         for (News news : allNews) {
             String content = news.getContent();
             GptResponse response = gptService.response(content, city);
             if (response.getChoices()[0].getMessage().getContent().contains("yes") || response.getChoices()[0].getMessage().getContent().contains("Yes")){
-               // NewsDto newsDto = mapperUtil.convert(news, new NewsDto());
+                NewsDto newsDto = mapperUtil.convert(news, new NewsDto());
                 newsDto.setCity(city);
-                newsDto.setAuthor(news.getAuthor());
-                newsDto.setTitle(news.getTitle());
-                newsDto.setDescription(news.getDescription());
-                newsDto.setContent(news.getContent());
+                System.out.println("GPT ->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + response.getChoices()[0].getMessage().getContent());
                 return newsDto;
             }
         }

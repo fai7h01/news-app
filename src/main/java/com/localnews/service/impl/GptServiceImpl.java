@@ -15,8 +15,8 @@ public class GptServiceImpl implements GptService {
 
     @Value("${openAPI.secret-key}")
     private String apiKey;
-    private final String authHeader = "Bearer " + apiKey;
-    private final String model = "gpt-4o-mini";
+//    private final String authHeader = "Bearer " + apiKey;
+//    private final String model = "gpt-4o-mini";
     private final OpenAIClient openAIClient;
 
     public GptServiceImpl(OpenAIClient openAIClient) {
@@ -27,7 +27,7 @@ public class GptServiceImpl implements GptService {
     @Override
     public GptRequest searchNewsByCity(String city) {
         GptRequest request = new GptRequest();
-        request.setModel(model);
+//        request.setModel(model);
 
         //list of articles
 
@@ -38,6 +38,8 @@ public class GptServiceImpl implements GptService {
     public GptResponse response(String content, String city) {
         try {
             GptRequest request = new GptRequest();
+            String authHeader = "Bearer " + apiKey;
+            String model = "gpt-4o-mini";
             request.setModel(model);
             request.setMessages(List.of(
                     new Message("system", "Use the provided city and news article and need to determine if this article is local to this city or contains that city." +

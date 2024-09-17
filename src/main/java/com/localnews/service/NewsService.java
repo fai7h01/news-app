@@ -4,6 +4,6 @@ import com.localnews.dto.NewsDto;
 
 public interface NewsService {
 
-    NewsDto getNewsByCity(String city, NewsDto newsDto);
+    NewsDto getNewsByCity(String city);
 
 }
