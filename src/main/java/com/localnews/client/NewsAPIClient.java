@@ -1,5 +1,6 @@
 package com.localnews.client;
 
+import com.localnews.dto.response.newsapi.NewsResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
