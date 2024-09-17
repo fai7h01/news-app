@@ -1,10 +1,9 @@
 package com.localnews.service;
 
-import com.localnews.dto.response.newsapi.NewsResponse;
-import com.localnews.entity.News;
+import com.localnews.dto.NewsDto;
 
 public interface NewsService {
 
-    News getNewsByCity(String city);
+    NewsDto getNewsByCity(String city, NewsDto newsDto);
 
 }

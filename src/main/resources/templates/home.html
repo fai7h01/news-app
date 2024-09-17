@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>City Articles</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <script>
+        function showArticle() {
+            const selectedCity = document.getElementById("citySelect").value;
+            const articles = document.querySelectorAll(".article");
+
+            articles.forEach(article => {
+                article.style.display = "none";  // Hide all articles
+            });
+
+            const articleToShow = document.getElementById(selectedCity + "-article");
+            if (articleToShow) {
+                articleToShow.style.display = "block";  // Show the selected city's article
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <!-- Dropdown for US Cities -->
+    <form th:object="${news}" th:action="@{/news/search}" method="post">
+        <label for="citySelect">Select a city:</label>
+        <select id="citySelect" class="dropdown" th:field="*{city}">
+            <option th:value="''" th:text="Selected"></option>
+            <option th:each="city : ${cities}" th:text="${city.getName().substring(1, city.getName().length() - 1)}" th:value="${city.id}"></option>
+        </select>
+
+        <!-- Submit button -->
+        <button type="submit" class="submit-button">Submit</button>
+    </form>
+
+    <!-- Articles Section -->
+    <div id="articles">
+        <!-- Example articles for cities -->
+        <div class="article" style="display: none;">
+            <h2 th:text="${news.getTitle()}"></h2>
+            <p th:text="${news.getContent()}"></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
