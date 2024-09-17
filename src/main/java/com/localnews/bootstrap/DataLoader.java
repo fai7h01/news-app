@@ -33,12 +33,18 @@ public class DataLoader implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         //import us cities
         readCsv(path);
         //import us news in db
-        NewsResponse usNews = newsclient.getNewsByCountry("us", newsApiKey);
-        List<Article> articles = usNews.getArticles();
+        NewsResponse usNews = newsclient.getNewsByCountry("us", newsApiKey); // by country
+        importNews(usNews.getArticles());
+        usNews = newsclient.getAllNewsByKeyword("United States", newsApiKey); // by keyword
+        importNews(usNews.getArticles());
+    }
+
+
+    private void importNews(List<Article> articles){
         articles.forEach(article -> {
             News news = new News();
             news.setAuthor(article.getAuthor());
@@ -48,6 +54,7 @@ public class DataLoader implements CommandLineRunner {
             newsRepository.save(news);
         });
     }
+
 
     private void readCsv(String path){
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
