@@ -38,8 +38,6 @@ public class NewsServiceImpl implements NewsService {
                 return newsDto;
             }
         }
-        News news = allNews.stream()
-                .findAny().orElseThrow(() -> new NoSuchElementException("News can not be found."));
-        return mapperUtil.convert(news, new NewsDto());
+        return null;
     }
 }

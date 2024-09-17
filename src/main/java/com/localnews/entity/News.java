@@ -28,5 +28,6 @@ public class News extends BaseEntity{
     @Lob
     @Column(columnDefinition = "TEXT")
     private String content;
+    private String url;
     private String city;
 }

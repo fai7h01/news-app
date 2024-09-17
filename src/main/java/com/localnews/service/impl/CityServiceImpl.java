@@ -8,6 +8,7 @@ import com.localnews.util.MapperUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,6 +25,12 @@ public class CityServiceImpl implements CityService {
     @Override
     public CityDto save(CityDto city) {
         return mapperUtil.convert(cityRepository.save(mapperUtil.convert(city, new City())), new CityDto());
+    }
+
+    @Override
+    public CityDto findById(Long id) {
+        City found = cityRepository.findById(id).orElseThrow(() -> new NoSuchElementException("City not found."));
+        return mapperUtil.convert(found, new CityDto());
     }
 
     @Override

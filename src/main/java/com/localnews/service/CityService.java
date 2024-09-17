@@ -7,7 +7,7 @@ import java.util.List;
 public interface CityService {
 
     CityDto save(CityDto city);
-
+    CityDto findById(Long id);
     List<CityDto> getAllCities();
 
 }

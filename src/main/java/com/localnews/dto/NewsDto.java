@@ -16,6 +16,7 @@ public class NewsDto {
     private String title;
     private String description;
     private String content;
+    private String url;
     private String city;
 
 }

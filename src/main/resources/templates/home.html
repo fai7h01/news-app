@@ -26,7 +26,7 @@
         <label for="citySelect">Select a city:</label>
         <select id="citySelect" class="dropdown" th:field="*{city}">
             <option th:value="''" th:text="Selected"></option>
-            <option th:each="city : ${cities}" th:text="${city.getName().substring(1, city.getName().length() - 1)}" th:value="${city.id}"></option>
+            <option th:each="city : ${cities}" th:text="${city.getName().substring(1, city.getName().length() - 1)}" th:value="${city.getName()}"></option>
         </select>
 
         <!-- Submit button -->

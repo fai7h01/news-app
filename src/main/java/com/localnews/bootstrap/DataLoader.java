@@ -51,6 +51,7 @@ public class DataLoader implements CommandLineRunner {
             news.setTitle(article.getTitle());
             news.setDescription(article.getDescription());
             news.setContent(article.getContent());
+            news.setUrl(article.getUrl());
             newsRepository.save(news);
         });
     }
