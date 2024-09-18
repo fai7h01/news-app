@@ -29,7 +29,7 @@ public class NewsController {
 
     @PostMapping("/search")
     public String findNewsByCity(@RequestParam("city") CityDto city, @ModelAttribute("news") NewsDto newsDto, Model model){
-        NewsDto news = newsService.getNewsByCity(city.getName());
+        NewsDto news = newsService.getNewsByCity(city);
         model.addAttribute("cities", cityService.getAllCities());
         model.addAttribute("news", news);
         return "article";

@@ -1,5 +1,6 @@
 package com.localnews.service.impl;
 
+import com.localnews.dto.CityDto;
 import com.localnews.dto.NewsDto;
 import com.localnews.dto.response.openai.GptResponse;
 import com.localnews.entity.News;
@@ -26,14 +27,14 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public NewsDto getNewsByCity(String city) {
+    public NewsDto getNewsByCity(CityDto city) {
         List<News> allNews = newsRepository.findAll();
         for (News news : allNews) {
             String content = news.getContent();
-            GptResponse response = gptService.response(content, city);
+            GptResponse response = gptService.response(content, city.getName());
             if (response.getChoices()[0].getMessage().getContent().contains("yes") || response.getChoices()[0].getMessage().getContent().contains("Yes")){
                 NewsDto newsDto = mapperUtil.convert(news, new NewsDto());
-                newsDto.getCity().setName(city);
+                newsDto.setCity(city);
                 newsDto.setLocal(true);
                 return newsDto;
             }
