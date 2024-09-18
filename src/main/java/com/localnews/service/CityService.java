@@ -2,6 +2,7 @@ package com.localnews.service;
 
 import com.localnews.dto.CityDto;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 public interface CityService {

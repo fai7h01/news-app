@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.io.*;
 import java.util.List;
 
@@ -41,7 +42,8 @@ public class DataLoader implements CommandLineRunner {
     }
 
 
-    private void importNews(List<Article> articles){
+    @Transactional
+    public void importNews(List<Article> articles){
         for (Article article : articles) {
             if (article.getTitle() == null || article.getContent() == null || article.getTitle().contains("Removed") || article.getContent().contains("Removed")){
                 continue;
@@ -57,8 +59,10 @@ public class DataLoader implements CommandLineRunner {
     }
 
 
-    private void readCsv(){
+    @Transactional
+    public void readCsv(){
         InputStream inputStream = getClass().getResourceAsStream("/csv/uscities.csv");
+        int counter = 1;
         try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
             String line = br.readLine();
             while ((line = br.readLine()) != null) {
@@ -68,6 +72,8 @@ public class DataLoader implements CommandLineRunner {
                 city.setState(values[2]);
                 city.setPopulation(values[8]);
                 cityService.save(city);
+                counter++;
+                if (counter > 500) break;
             }
         } catch (IOException e) {
             e.printStackTrace();

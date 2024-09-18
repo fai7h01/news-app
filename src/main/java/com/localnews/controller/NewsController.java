@@ -27,7 +27,7 @@ public class NewsController {
         return "home";
     }
 
-    @PostMapping("/search")
+    @GetMapping("/search")
     public String findNewsByCity(@RequestParam("city") CityDto city, @ModelAttribute("news") NewsDto newsDto, Model model){
         NewsDto news = newsService.getNewsByCity(city);
         model.addAttribute("cities", cityService.getAllCities());

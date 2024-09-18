@@ -26,6 +26,8 @@ public class News extends BaseEntity{
     @Column(columnDefinition = "TEXT")
     private String content;
     private String url;
-    @ManyToOne(fetch = FetchType.LAZY)
+
+    @JoinColumn(name = "city_id")
+    @ManyToOne
     private City city;
 }

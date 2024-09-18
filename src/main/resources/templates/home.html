@@ -22,7 +22,7 @@
 <body>
 <div class="container">
     <!-- Dropdown for US Cities -->
-    <form th:object="${news}" th:action="@{/news/search}" method="post">
+    <form th:object="${news}" th:action="@{/news/search}" method="get">
         <label for="citySelect">Select a city:</label>
         <select id="citySelect" class="dropdown" th:field="*{city}">
             <option th:value="''" th:text="Selected"></option>
