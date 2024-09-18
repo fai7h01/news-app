@@ -38,7 +38,6 @@ public class DataLoader implements CommandLineRunner {
         importNews(usNews.getArticles());
         usNews = newsclient.getAllNewsByKeyword("United States", newsApiKey); // by keyword
         importNews(usNews.getArticles());
-        newsRepository.findAll().stream().map(News::getContent).forEach(System.out::println);
     }
 
 
