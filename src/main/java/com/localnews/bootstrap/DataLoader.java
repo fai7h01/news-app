@@ -76,7 +76,7 @@ public class DataLoader implements CommandLineRunner {
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
                 CityDto city = new CityDto();
-                city.setName(values[0]);
+                city.setName(values[0].substring(1, values[0].length() - 1));
                 city.setState(values[2]);
                 city.setPopulation(values[8]);
                 cityService.save(city);

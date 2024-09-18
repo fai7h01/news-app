@@ -1,5 +1,6 @@
 package com.localnews.controller;
 
+import com.localnews.dto.CityDto;
 import com.localnews.dto.NewsDto;
 import com.localnews.service.CityService;
 import com.localnews.service.NewsService;
@@ -27,8 +28,8 @@ public class NewsController {
     }
 
     @PostMapping("/search")
-    public String findNewsByCity(@ModelAttribute("news") NewsDto newsDto, Model model){
-        NewsDto news = newsService.getNewsByCity(newsDto.getCity());
+    public String findNewsByCity(@RequestParam("city") CityDto city, @ModelAttribute("news") NewsDto newsDto, Model model){
+        NewsDto news = newsService.getNewsByCity(city.getName());
         model.addAttribute("cities", cityService.getAllCities());
         model.addAttribute("news", news);
         return "article";

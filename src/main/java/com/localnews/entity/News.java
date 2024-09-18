@@ -5,10 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Lob;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -29,5 +26,6 @@ public class News extends BaseEntity{
     @Column(columnDefinition = "TEXT")
     private String content;
     private String url;
-    private String city;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private City city;
 }
