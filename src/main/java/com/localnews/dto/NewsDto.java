@@ -18,5 +18,6 @@ public class NewsDto {
     private String content;
     private String url;
     private String city;
+    private boolean isLocal;
 
 }

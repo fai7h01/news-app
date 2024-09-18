@@ -10,7 +10,7 @@ import com.localnews.util.MapperUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public class NewsServiceImpl implements NewsService {
@@ -34,10 +34,13 @@ public class NewsServiceImpl implements NewsService {
             if (response.getChoices()[0].getMessage().getContent().contains("yes") || response.getChoices()[0].getMessage().getContent().contains("Yes")){
                 NewsDto newsDto = mapperUtil.convert(news, new NewsDto());
                 newsDto.setCity(city);
-                System.out.println("GPT ->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + response.getChoices()[0].getMessage().getContent());
+                newsDto.setLocal(true);
                 return newsDto;
             }
         }
-        return null;
+        Optional<News> news = Optional.of(allNews.stream().findAny().orElseThrow());
+        NewsDto random = mapperUtil.convert(news, new NewsDto());
+        random.setLocal(false);
+        return random;
     }
 }

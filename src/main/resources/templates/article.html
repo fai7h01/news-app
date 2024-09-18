@@ -38,7 +38,8 @@
         <!-- Example articles for cities -->
         <div class="article">
             <h1 th:text="'Article here:'"></h1>
-            <h2 th:text="${news.getTitle()}"></h2>
+            <h2 th:text="'Title:' + ${news.getTitle()}"></h2>
+            <h2 th:text="'local: ' + ${news.isLocal()}"></h2>
             <p th:text="${news.getContent()}"></p>
             <p><a th:href="${news.url}">Link to news</a></p>
         </div>
