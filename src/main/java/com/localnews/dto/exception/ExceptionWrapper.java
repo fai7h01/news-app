@@ -1,4 +1,4 @@
-package com.localnews.dto;
+package com.localnews.dto.exception;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
