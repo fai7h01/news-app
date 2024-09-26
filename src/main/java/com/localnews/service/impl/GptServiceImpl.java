@@ -46,7 +46,7 @@ public class GptServiceImpl implements GptService {
             request.setMax_completion_tokens(100);
             GptResponse response = openAIClient.getCompletions(authHeader, request);
             log.info("GPT response: {}", response.getChoices()[0].getMessage().getContent());
-            return openAIClient.getCompletions(authHeader, request);
+            return response;
         }catch (Exception e){
             log.error("Error occurred during returning response.");
         }
