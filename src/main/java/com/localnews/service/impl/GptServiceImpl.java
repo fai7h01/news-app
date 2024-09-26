@@ -48,7 +48,7 @@ public class GptServiceImpl implements GptService {
             log.info("GPT response: {}", response.getChoices()[0].getMessage().getContent());
             return response;
         }catch (Exception e){
-            log.error("Error occurred during returning response.");
+            log.error("Error occurred during returning response: {}", e.getMessage());
         }
         throw new GptResponseFailedException("Request failed! Try again.");
     }

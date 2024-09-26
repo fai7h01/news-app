@@ -40,24 +40,6 @@ public class NewsServiceImpl implements NewsService {
 
         CityDto city = cityService.findById(cityId);
         List<News> allNews = newsRepository.findAll();
-//
-//        List<CompletableFuture<GptResponse>> futures = allNews.stream()
-//                .map(news -> gptService.asyncResponse(news.getContent(), city.getName()))
-//                .collect(Collectors.toList());
-//
-//        CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
-//
-//        for (int i = 0; i < allNews.size(); i++) {
-//            News news = allNews.get(i);
-//            GptResponse response = futures.get(i).join();
-//            if (response.getChoices()[0].getMessage().getContent().contains("Yes")){
-//                NewsDto newsDto = mapperUtil.convert(news, new NewsDto());
-//                newsDto.setCity(city);
-//                newsDto.setLocal(true);
-//                log.info("Found news: {}", newsDto.getContent());
-//                return newsDto;
-//            }
-//        }
 
         List<Pair<News, CompletableFuture<GptResponse>>> futurePairs = allNews.stream()
                 .map(news -> Pair.of(news, gptService.asyncResponse(news.getContent(), city.getName())))
