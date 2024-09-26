@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 @Service
 public class NewsServiceImpl implements NewsService {
@@ -29,9 +31,15 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public NewsDto getNewsByCity(CityDto city) {
         List<News> allNews = newsRepository.findAll();
-        for (News news : allNews) {
-            String content = news.getContent();
-            GptResponse response = gptService.response(content, city.getName());
+        List<CompletableFuture<GptResponse>> futures = allNews.stream()
+                .map(news -> gptService.asyncResponse(news.getContent(), city.getName()))
+                .collect(Collectors.toList());
+
+        CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
+
+        for (int i = 0; i < allNews.size(); i++) {
+            News news = allNews.get(i);
+            GptResponse response = futures.get(i).join();
             if (response.getChoices()[0].getMessage().getContent().contains("yes") || response.getChoices()[0].getMessage().getContent().contains("Yes")){
                 NewsDto newsDto = mapperUtil.convert(news, new NewsDto());
                 newsDto.setCity(city);
@@ -39,7 +47,7 @@ public class NewsServiceImpl implements NewsService {
                 return newsDto;
             }
         }
-        Optional<News> news = Optional.of(allNews.stream().findAny().orElseThrow());
+        Optional<News> news = Optional.of(allNews.stream().parallel().findAny().orElseThrow());
         NewsDto random = mapperUtil.convert(news, new NewsDto());
         random.setLocal(false);
         return random;

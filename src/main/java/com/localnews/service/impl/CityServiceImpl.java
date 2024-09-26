@@ -5,6 +5,7 @@ import com.localnews.entity.City;
 import com.localnews.repository.CityRepository;
 import com.localnews.service.CityService;
 import com.localnews.util.MapperUtil;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,7 +36,7 @@ public class CityServiceImpl implements CityService {
 
     @Override
     public List<CityDto> getAllCities() {
-        return cityRepository.findAll().stream()
+        return cityRepository.findAll(Sort.by("name")).stream()
                 .map(city -> mapperUtil.convert(city, new CityDto())).collect(Collectors.toList());
     }
 }
