@@ -12,7 +12,7 @@ import com.localnews.util.MapperUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -33,8 +33,10 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public NewsDto getNewsByCity(Long cityId) {
+
         CityDto city = cityService.findById(cityId);
         List<News> allNews = newsRepository.findAll();
+
         List<CompletableFuture<GptResponse>> futures = allNews.stream()
                 .map(news -> gptService.asyncResponse(news.getContent(), city.getName()))
                 .collect(Collectors.toList());
@@ -51,9 +53,8 @@ public class NewsServiceImpl implements NewsService {
                 return newsDto;
             }
         }
-        Optional<News> news = Optional.of(allNews.stream().parallel().findAny().orElseThrow());
-        NewsDto random = mapperUtil.convert(news, new NewsDto());
-        random.setLocal(false);
-        return random;
+
+        News random = allNews.get(new Random().nextInt(allNews.size()));
+        return mapperUtil.convert(random, new NewsDto());
     }
 }
