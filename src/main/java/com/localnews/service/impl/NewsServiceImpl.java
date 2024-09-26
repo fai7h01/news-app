@@ -29,10 +29,10 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public NewsDto getNewsByCity(CityDto city) {
+    public NewsDto getNewsByCity(String city) {
         List<News> allNews = newsRepository.findAll();
         List<CompletableFuture<GptResponse>> futures = allNews.stream()
-                .map(news -> gptService.asyncResponse(news.getContent(), city.getName()))
+                .map(news -> gptService.asyncResponse(news.getContent(), city))
                 .collect(Collectors.toList());
 
         CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
@@ -42,7 +42,7 @@ public class NewsServiceImpl implements NewsService {
             GptResponse response = futures.get(i).join();
             if (response.getChoices()[0].getMessage().getContent().contains("yes") || response.getChoices()[0].getMessage().getContent().contains("Yes")){
                 NewsDto newsDto = mapperUtil.convert(news, new NewsDto());
-                newsDto.setCity(city);
+                //newsDto.setCity(new CityDto());
                 newsDto.setLocal(true);
                 return newsDto;
             }

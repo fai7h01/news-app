@@ -1,49 +1,43 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-    <title>City Articles</title>
-    <link rel="stylesheet" href="/static/css/style.css" />
-    <script>
-        function showArticle() {
-            const selectedCity = document.getElementById("citySelect").value;
-            const articles = document.querySelectorAll(".article");
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org" lang="en">-->
+<!--<head>-->
+<!--    <title>City Articles</title>-->
+<!--    <link rel="stylesheet" href="/static/css/style.css" />-->
+<!--    <script>-->
+<!--        function showArticle() {-->
+<!--            const selectedCity = document.getElementById("citySelect").value;-->
+<!--            const articles = document.querySelectorAll(".article");-->
 
-            articles.forEach(article => {
-                article.style.display = "none";  // Hide all articles
-            });
+<!--            articles.forEach(article => {-->
+<!--                article.style.display = "none";  // Hide all articles-->
+<!--            });-->
 
-            const articleToShow = document.getElementById(selectedCity + "-article");
-            if (articleToShow) {
-                articleToShow.style.display = "block";  // Show the selected city's article
-            }
-        }
-    </script>
-</head>
-<body>
-<div class="container">
-    <!-- Dropdown for US Cities -->
-    <form th:object="${news}" th:action="@{/news}" method="get">
-<!--        <label for="citySelect">Se</label>-->
-<!--        <select id="citySelect" class="dropdown" th:field="*{city}">-->
-<!--            <option th:value="''" th:text="Selected"></option>-->
-<!--            <option th:each="city : ${cities}" th:text="${city.getName().substring(1, city.getName().length() - 1)}" th:value="${city.id}"></option>-->
-<!--        </select>-->
+<!--            const articleToShow = document.getElementById(selectedCity + "-article");-->
+<!--            if (articleToShow) {-->
+<!--                articleToShow.style.display = "block";  // Show the selected city's article-->
+<!--            }-->
+<!--        }-->
+<!--    </script>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container">-->
+<!--    &lt;!&ndash; Dropdown for US Cities &ndash;&gt;-->
+<!--    <form th:action="@{/news}" method="get">-->
 
-        <!-- Submit button -->
-        <button type="submit" class="submit-button">Search again</button>
-    </form>
+<!--        <button type="submit" class="submit-button">Search again</button>-->
+<!--    </form>-->
 
-    <!-- Articles Section -->
-    <div id="articles">
-        <!-- Example articles for cities -->
-        <div class="article">
-            <h1 th:text="'Article here:'"></h1>
-            <h2 th:text="'Title:' + ${news.getTitle()}"></h2>
-            <h2 th:text="'local: ' + ${news.isLocal()}"></h2>
-            <p th:text="${news.getContent()}"></p>
-            <p><a th:href="${news.url}">Link to news</a></p>
-        </div>
-    </div>
-</div>
-</body>
-</html>
+<!--    &lt;!&ndash; Articles Section &ndash;&gt;-->
+<!--    <div id="articles">-->
+<!--        &lt;!&ndash; Example articles for cities &ndash;&gt;-->
+<!--        <div class="article">-->
+<!--            <h1 th:text="'Article here:'"></h1>-->
+<!--            <h2 th:text="'Title:' + ${news.getTitle()}"></h2>-->
+<!--            <h2 th:text="'local: ' + ${news.isLocal()}"></h2>-->
+<!--            <p th:text="${news.getContent()}"></p>-->
+<!--            <p><a th:href="${news.url}">Link to news</a></p>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->

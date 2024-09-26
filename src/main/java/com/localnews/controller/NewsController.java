@@ -2,14 +2,17 @@ package com.localnews.controller;
 
 import com.localnews.dto.CityDto;
 import com.localnews.dto.NewsDto;
+import com.localnews.dto.ResponseWrapper;
 import com.localnews.service.CityService;
 import com.localnews.service.NewsService;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
-@RequestMapping("/news")
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/v1/news-app")
 public class NewsController {
 
     private final NewsService newsService;
@@ -20,18 +23,22 @@ public class NewsController {
         this.cityService = cityService;
     }
 
-    @GetMapping
-    public String getPage(Model model){
-        model.addAttribute("news", new NewsDto());
-        model.addAttribute("cities", cityService.getAllCities());
-        return "home";
+    @GetMapping("/cities")
+    public ResponseEntity<ResponseWrapper> getAllCities(){
+        List<CityDto> allCities = cityService.getAllCities();
+        return ResponseEntity.ok(ResponseWrapper.builder()
+                .success(true)
+                .code(HttpStatus.OK.value())
+                .data(allCities).build());
     }
 
-    @PostMapping("/search")
-    public String findNewsByCity(@RequestParam("city") CityDto city, @ModelAttribute("news") NewsDto newsDto, Model model){
-        NewsDto news = newsService.getNewsByCity(city);
-        model.addAttribute("cities", cityService.getAllCities());
-        model.addAttribute("news", news);
-        return "article";
+    @GetMapping("/articleByCity")
+    public ResponseEntity<ResponseWrapper> getContentByCity(@RequestParam("city") String city){
+        NewsDto newsByCity = newsService.getNewsByCity(city);
+        return ResponseEntity.ok(ResponseWrapper.builder()
+                .success(true)
+                .code(HttpStatus.OK.value())
+                .data(newsByCity).build());
     }
+
 }
