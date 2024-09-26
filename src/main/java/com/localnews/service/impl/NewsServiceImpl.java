@@ -40,7 +40,7 @@ public class NewsServiceImpl implements NewsService {
         for (int i = 0; i < allNews.size(); i++) {
             News news = allNews.get(i);
             GptResponse response = futures.get(i).join();
-            if (response.getChoices()[0].getMessage().getContent().contains("yes") || response.getChoices()[0].getMessage().getContent().contains("Yes")){
+            if (response.getChoices()[0].getMessage().getContent().contains("Yes")){
                 NewsDto newsDto = mapperUtil.convert(news, new NewsDto());
                 //newsDto.setCity(new CityDto());
                 newsDto.setLocal(true);

@@ -26,6 +26,12 @@ public class GptServiceImpl implements GptService {
         this.openAIClient = openAIClient;
     }
 
+    @Async
+    @Override
+    public CompletableFuture<GptResponse> asyncResponse(String content, String city) {
+        return CompletableFuture.supplyAsync(() -> response(content, city));
+    }
+
     @Override
     public GptResponse response(String content, String city) {
         try {
@@ -45,11 +51,5 @@ public class GptServiceImpl implements GptService {
             log.error("Error occurred during returning response.");
         }
         throw new GptResponseException("Request failed! Try again.");
-    }
-
-    @Async
-    @Override
-    public CompletableFuture<GptResponse> asyncResponse(String content, String city) {
-        return CompletableFuture.supplyAsync(() -> response(content, city));
     }
 }
