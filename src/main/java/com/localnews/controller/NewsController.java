@@ -17,9 +17,9 @@ public class NewsController {
         this.newsService = newsService;
     }
 
-    @GetMapping("/search")
-    public ResponseEntity<ResponseWrapper> getContentByCity(@RequestParam("city") String city){
-        NewsDto newsByCity = newsService.getNewsByCity(city);
+    @GetMapping("/search/{cityId}")
+    public ResponseEntity<ResponseWrapper> getContentByCity(@PathVariable("cityId") Long cityId){
+        NewsDto newsByCity = newsService.getNewsByCity(cityId);
         return ResponseEntity.ok(ResponseWrapper.builder()
                 .success(true)
                 .code(HttpStatus.OK.value())

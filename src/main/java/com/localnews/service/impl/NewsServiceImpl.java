@@ -5,6 +5,7 @@ import com.localnews.dto.NewsDto;
 import com.localnews.dto.response.openai.GptResponse;
 import com.localnews.entity.News;
 import com.localnews.repository.NewsRepository;
+import com.localnews.service.CityService;
 import com.localnews.service.GptService;
 import com.localnews.service.NewsService;
 import com.localnews.util.MapperUtil;
@@ -21,18 +22,21 @@ public class NewsServiceImpl implements NewsService {
     private final NewsRepository newsRepository;
     private final GptService gptService;
     private final MapperUtil mapperUtil;
+    private final CityService cityService;
 
-    public NewsServiceImpl(NewsRepository newsRepository, GptService gptService, MapperUtil mapperUtil) {
+    public NewsServiceImpl(NewsRepository newsRepository, GptService gptService, MapperUtil mapperUtil, CityService cityService) {
         this.newsRepository = newsRepository;
         this.gptService = gptService;
         this.mapperUtil = mapperUtil;
+        this.cityService = cityService;
     }
 
     @Override
-    public NewsDto getNewsByCity(String city) {
+    public NewsDto getNewsByCity(Long cityId) {
+        CityDto city = cityService.findById(cityId);
         List<News> allNews = newsRepository.findAll();
         List<CompletableFuture<GptResponse>> futures = allNews.stream()
-                .map(news -> gptService.asyncResponse(news.getContent(), city))
+                .map(news -> gptService.asyncResponse(news.getContent(), city.getName()))
                 .collect(Collectors.toList());
 
         CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
@@ -42,7 +46,7 @@ public class NewsServiceImpl implements NewsService {
             GptResponse response = futures.get(i).join();
             if (response.getChoices()[0].getMessage().getContent().contains("Yes")){
                 NewsDto newsDto = mapperUtil.convert(news, new NewsDto());
-                //newsDto.setCity(new CityDto());
+                newsDto.setCity(city);
                 newsDto.setLocal(true);
                 return newsDto;
             }
