@@ -18,7 +18,7 @@ import java.util.concurrent.CompletableFuture;
 @Service
 public class GptServiceImpl implements GptService {
 
-    @Value("${openAPI.secret-key}")
+    @Value("${openAI.secret-key}")
     private String apiKey;
     private final OpenAIClient openAIClient;
 
