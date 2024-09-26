@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 
 @Slf4j
 @RestControllerAdvice
@@ -22,6 +23,7 @@ public class GlobalExceptionHandler {
                         .message("Action failed: An error occurred!")
                         .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
                         .path(request.getRequestURI())
+                        .timestamp(LocalDateTime.now())
                         .build());
     }
 
@@ -34,6 +36,7 @@ public class GlobalExceptionHandler {
                         .message(e.getMessage())
                         .code(HttpStatus.NOT_FOUND.value())
                         .path(request.getRequestURI())
+                        .timestamp(LocalDateTime.now())
                         .build());
     }
 
@@ -46,6 +49,7 @@ public class GlobalExceptionHandler {
                         .message(e.getMessage())
                         .code(HttpStatus.BAD_REQUEST.value())
                         .path(request.getRequestURI())
+                        .timestamp(LocalDateTime.now())
                         .build());
     }
 
