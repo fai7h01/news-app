@@ -2,6 +2,7 @@ package com.localnews.service.impl;
 
 import com.localnews.dto.CityDto;
 import com.localnews.entity.City;
+import com.localnews.exception.CityNotFoundException;
 import com.localnews.repository.CityRepository;
 import com.localnews.service.CityService;
 import com.localnews.util.MapperUtil;
@@ -30,7 +31,7 @@ public class CityServiceImpl implements CityService {
 
     @Override
     public CityDto findById(Long id) {
-        City found = cityRepository.findById(id).orElseThrow(() -> new NoSuchElementException("City not found."));
+        City found = cityRepository.findById(id).orElseThrow(() -> new CityNotFoundException("City not found."));
         return mapperUtil.convert(found, new CityDto());
     }
 

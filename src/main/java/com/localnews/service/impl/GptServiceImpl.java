@@ -4,7 +4,7 @@ import com.localnews.client.OpenAIClient;
 import com.localnews.dto.request.openai.GptRequest;
 import com.localnews.dto.response.openai.GptResponse;
 import com.localnews.dto.response.openai.Message;
-import com.localnews.exception.GptResponseException;
+import com.localnews.exception.GptResponseFailedException;
 import com.localnews.service.GptService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -50,6 +50,6 @@ public class GptServiceImpl implements GptService {
         }catch (Exception e){
             log.error("Error occurred during returning response.");
         }
-        throw new GptResponseException("Request failed! Try again.");
+        throw new GptResponseFailedException("Request failed! Try again.");
     }
 }
