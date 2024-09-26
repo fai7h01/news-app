@@ -9,6 +9,7 @@ import com.localnews.service.CityService;
 import com.localnews.service.GptService;
 import com.localnews.service.NewsService;
 import com.localnews.util.MapperUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class NewsServiceImpl implements NewsService {
 
@@ -50,6 +52,7 @@ public class NewsServiceImpl implements NewsService {
                 NewsDto newsDto = mapperUtil.convert(news, new NewsDto());
                 newsDto.setCity(city);
                 newsDto.setLocal(true);
+                log.info("Found news: {}", newsDto.getContent());
                 return newsDto;
             }
         }

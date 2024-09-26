@@ -14,7 +14,6 @@ import lombok.Setter;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CityDto {
 
-    @JsonIgnore
     private Long id;
     private String name;
     private String state;

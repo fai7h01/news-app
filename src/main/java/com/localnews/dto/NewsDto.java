@@ -14,7 +14,6 @@ import lombok.Setter;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class NewsDto {
 
-    @JsonIgnore
     private Long id;
     private String author;
     private String title;
