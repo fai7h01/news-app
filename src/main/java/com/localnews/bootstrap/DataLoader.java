@@ -42,7 +42,6 @@ public class DataLoader implements CommandLineRunner {
     }
 
 
-    @Transactional
     public void importNews(List<Article> articles){
         for (Article article : articles) {
             if (article.getTitle() == null || article.getContent() == null || article.getTitle().contains("Removed") || article.getContent().contains("Removed")){
@@ -58,8 +57,6 @@ public class DataLoader implements CommandLineRunner {
         }
     }
 
-
-    @Transactional
     public void readCsv(){
         InputStream inputStream = getClass().getResourceAsStream("/csv/uscities.csv");
         int counter = 1;
@@ -69,8 +66,8 @@ public class DataLoader implements CommandLineRunner {
                 String[] values = line.split(",");
                 CityDto city = new CityDto();
                 city.setName(values[0].substring(1, values[0].length() - 1));
-                city.setState(values[2]);
-                city.setPopulation(values[8]);
+                city.setState(values[2].substring(1, values[2].length() - 1));
+                city.setPopulation(values[8].substring(1, values[8].length() - 1));
                 cityService.save(city);
                 counter++;
                 if (counter > 500) break;
