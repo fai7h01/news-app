@@ -58,6 +58,7 @@ public class NewsServiceImpl implements NewsService {
                 newsDto.setCity(city);
                 newsDto.setLocal(true);
                 log.info("Found news: {}", newsDto.getContent());
+                newsRepository.save(mapperUtil.convert(newsDto, new News()));
                 return newsDto;
             }
         }
