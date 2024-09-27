@@ -58,7 +58,7 @@ public class NewsServiceImpl implements NewsService {
                 newsDto.setCity(city);
                 newsDto.setLocal(true);
                 log.info("Found news: {}", newsDto.getContent());
-               return newsDto;
+                return newsDto;
             }
         }
         News random = allNews.get(new Random().nextInt(allNews.size()));
