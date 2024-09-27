@@ -1,5 +1,6 @@
 package com.localnews.controller;
 
+import com.localnews.annotation.ExecutionTime;
 import com.localnews.dto.NewsDto;
 import com.localnews.dto.ResponseWrapper;
 import com.localnews.service.NewsService;
@@ -18,6 +19,7 @@ public class NewsController {
         this.newsService = newsService;
     }
 
+    @ExecutionTime
     @GetMapping("/search/{cityId}")
     public ResponseEntity<ResponseWrapper> getContentByCity(@PathVariable("cityId") Long cityId){
         NewsDto newsByCity = newsService.getNewsByCity(cityId);
