@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "https://fai7h01.github.io")
 @RestController
 @RequestMapping("/api/v1/city")
 @Tag(name = "City Controller", description = "City CRUD Operations")

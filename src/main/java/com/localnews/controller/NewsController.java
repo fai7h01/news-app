@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "https://fai7h01.github.io")
 @RestController
 @RequestMapping("/api/v1/news")
 @Tag(name = "News Controller", description = "News API")
