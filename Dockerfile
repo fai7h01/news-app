@@ -5,4 +5,4 @@ RUN mvn clean package -DskipTests
 FROM openjdk:17.0.1-jdk-slim
 COPY --from=build target/local-news-app-0.0.1-SNAPSHOT.jar local-news-app-0.0.1-SNAPSHOT.jar
 EXPOSE 8081
-ENTRYPOINT ("java", "-jar", "local-news-app-0.0.1-SNAPSHOT.jar")
+ENTRYPOINT ["java", "-jar", "local-news-app-0.0.1-SNAPSHOT.jar"]
